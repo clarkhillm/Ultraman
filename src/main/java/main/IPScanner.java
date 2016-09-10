@@ -36,7 +36,7 @@ class IPScanner {
     }
 
     void submitWorker(String ip) {
-        String url = "https://" + ip + "/clarkhillgo1.appspot.com";
+        String url = "https://" + ip;
         Future future = pool.submit(() -> {
             //System.out.print("+");
             HttpGet httpget = new HttpGet(url);
