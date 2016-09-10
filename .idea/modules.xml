@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ultaman.iml" filepath="$PROJECT_DIR$/.idea/modules/ultaman.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ultaman_main.iml" filepath="$PROJECT_DIR$/.idea/modules/ultaman_main.iml" group="ultaman" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ultaman_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ultaman_test.iml" group="ultaman" />
+    </modules>
+  </component>
+</project>

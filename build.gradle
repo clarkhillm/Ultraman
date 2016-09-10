@@ -1,0 +1,18 @@
+group 'ultaman'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.apache.httpcomponents:httpclient:4.5',
+            'commons-net:commons-net:3.5'
+}
+mainClassName = 'main.Main'
+
