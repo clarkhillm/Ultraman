@@ -18,7 +18,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 
 class Utils {
@@ -74,13 +73,5 @@ class Utils {
         }
 
         return rs;
-    }
-
-    public static void main(String[] args) {
-        List<String> ip_array = Utils.gen_IPs();
-        Random random = new Random();
-        for (int i = 0; i < 100; i++) {
-            System.out.println(random.nextInt(ip_array.size()));
-        }
     }
 }
