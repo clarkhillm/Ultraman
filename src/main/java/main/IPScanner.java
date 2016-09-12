@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import static main.Utils.createHttpClient;
 
@@ -49,7 +50,7 @@ class IPScanner {
                 client.execute(httpget, (ResponseHandler) httpResponse -> {
                     String body = getResponseContent(httpResponse);
                     if (!body.contains("<p>The requested URL <code>/clarkhillgo1.appspot.com</code> was not found on this server.  <ins>That’s all we know.</ins>")) {
-                        System.out.println(body);
+                        //System.out.println(body);
                     } else {
                         goods.add(ip);
                     }
@@ -76,12 +77,15 @@ class IPScanner {
     }
 
     List<String> get_result() {
-        boolean finish = false;
-        while (!finish) {
-            for (Future future : futures) {
-                finish = finish || future.isDone();
+        ArrayList<String> finish = new ArrayList<>();
+        while (true) {
+            finish.clear();
+            finish.addAll(futures.stream().filter(Future::isDone).map(future -> "1").collect(Collectors.toList()));
+            if (finish.size() == futures.size()) {
+                break;
             }
         }
+        System.out.println("goods = " + goods);
         return goods;
     }
 }
