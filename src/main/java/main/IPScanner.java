@@ -1,11 +1,15 @@
 package main;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -31,24 +35,28 @@ class IPScanner {
             .build();
     private HttpClient client;
 
+
     IPScanner() {
         this.client = createHttpClient();
     }
 
     void submitWorker(String ip) {
-        String url = "https://" + ip;
+        String url = "https://" + ip + "/clarkhillgo1.appspot.com";
         Future future = pool.submit(() -> {
-            //System.out.print("+");
             HttpGet httpget = new HttpGet(url);
             httpget.setConfig(requestConfig);
             try {
                 client.execute(httpget, (ResponseHandler) httpResponse -> {
-                    //System.out.print(".");
-                    goods.add(ip);
+                    String body = getResponseContent(httpResponse);
+                    if (!body.contains("<p>The requested URL <code>/clarkhillgo1.appspot.com</code> was not found on this server.  <ins>That’s all we know.</ins>")) {
+                        System.out.println(body);
+                    } else {
+                        goods.add(ip);
+                    }
                     return "";
                 });
             } catch (IOException e) {
-                //System.out.print("-");
+                //do nothing...
             }
         });
         futures.add(future);
@@ -57,6 +65,14 @@ class IPScanner {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getResponseContent(HttpResponse httpResponse) throws IOException {
+        InputStream in = httpResponse.getEntity().getContent();
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(in, writer, "utf-8");
+        String theString = writer.toString();
+        return theString;
     }
 
     List<String> get_result() {
