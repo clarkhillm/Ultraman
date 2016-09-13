@@ -1,6 +1,8 @@
 package main;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.net.util.SubnetUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
@@ -12,9 +14,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContexts;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -92,5 +92,13 @@ class Utils {
             e.printStackTrace();
         }
         return ips;
+    }
+
+    static String getResponseContent(HttpResponse httpResponse) throws IOException {
+        InputStream in = httpResponse.getEntity().getContent();
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(in, writer, "utf-8");
+        String theString = writer.toString();
+        return theString;
     }
 }

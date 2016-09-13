@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static main.Utils.getIPs;
+
 public class Main {
     public static void main(String[] args) {
-//        String ips = "";
-//        ips = getIPs(ips, "/Users/gavin/goagent/local/ip_list.txt.1");
-//        String[] ip_array = ips.split("[|]");
-        List<String> all_ips = Utils.gen_IPs();
-        String[] ip_array = new String[5000];
-        Random random = new Random();
-        for (int i = 0; i < 5000; i++) {
-            ip_array[i] = (all_ips.get(random.nextInt(all_ips.size())));
-        }
+        // String[] ip_array = genIPArrayByListFile();
+        String[] ip_array = genIPArrayByRandomIPList(5000);
 
         System.out.println(ip_array.length);
 
@@ -53,6 +48,22 @@ public class Main {
         for (String r : rs) {
             System.out.print(r + '|');
         }
+    }
+
+    private static String[] genIPArrayByRandomIPList(int ipNumber) {
+        List<String> all_ips = Utils.gen_IPs();
+        String[] ip_array = new String[ipNumber];
+        Random random = new Random();
+        for (int i = 0; i < ipNumber; i++) {
+            ip_array[i] = (all_ips.get(random.nextInt(all_ips.size())));
+        }
+        return ip_array;
+    }
+
+    private static String[] genIPArrayByListFile() {
+        String ips = "";
+        ips = getIPs(ips, "/Users/gavin/goagent/local/ip_list.txt");
+        return ips.split("[|]");
     }
 
 
