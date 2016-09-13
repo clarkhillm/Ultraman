@@ -1,4 +1,4 @@
-ultaman
+ultraman
 ===
 <img src="ultaman.png"/>
 
