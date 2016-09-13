@@ -66,5 +66,4 @@ public class Main {
         return ips.split("[|]");
     }
 
-
 }
