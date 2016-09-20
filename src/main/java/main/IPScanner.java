@@ -1,6 +1,7 @@
 package main;
 
-import org.apache.http.client.ResponseHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ import static main.Utils.getResponseContent;
  * 在线程中检索可用的IP
  */
 class IPScanner {
+    private static Logger logger = LogManager.getLogger(IPScanner.class.getName());
+
     private ExecutorService pool = Executors.newCachedThreadPool();
     private ArrayList<Future> futures = new ArrayList<>();
     private ArrayList<String> goods = new ArrayList<>();
@@ -30,10 +33,10 @@ class IPScanner {
     void submitWorker(String ip) {
         String url = "https://clarkhillgo1.appspot.com";
         Future future = pool.submit(() -> {
-            TestIP(ip, (ResponseHandler) response -> {
+            TestIP(ip, response -> {
                 String body = getResponseContent(response);
                 if (body.contains("GoAgent")) {
-                    System.out.println(body);
+                    logger.debug(body);
                     goods.add(ip);
                 }
                 return "";

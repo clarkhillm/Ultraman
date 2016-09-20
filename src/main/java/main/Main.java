@@ -11,7 +11,7 @@ import java.util.Random;
 import static main.Utils.getIPs;
 
 public class Main {
-    static Logger logger = LogManager.getLogger(Main.class.getName());
+    private static Logger logger = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
         // String[] ip_array = genIPArrayByListFile();
