@@ -1,5 +1,9 @@
 package main;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,11 +11,13 @@ import java.util.Random;
 import static main.Utils.getIPs;
 
 public class Main {
+    static Logger logger = LogManager.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
         // String[] ip_array = genIPArrayByListFile();
         String[] ip_array = genIPArrayByRandomIPList(5000);
 
-        System.out.println(ip_array.length);
+        logger.debug(ip_array.length);
 
         int poolSize = 500;
 
@@ -21,18 +27,18 @@ public class Main {
             round = round + 1;
         }
 
-        System.out.println("section = " + round);
+        logger.debug("section = " + round);
 
         List<String> rs = new ArrayList<>();
 
         int start = 0;
         for (int i = 0; i < round; i++) {
-            System.out.println("===section " + (i + 1) + " start==");
+            logger.debug("===section " + (i + 1) + " start==");
             int end = poolSize * (i + 1);
             if (end >= length) {
                 end = length;
             }
-            System.out.println("form " + start + " to " + end);
+            logger.debug("form " + start + " to " + end);
             IPScanner scanner = new IPScanner();
             for (; start < end; start++) {
                 String ip = ip_array[start];
@@ -40,10 +46,10 @@ public class Main {
             }
             List<String> result = scanner.get_result();
             rs.addAll(result);
-            System.out.println("find : " + result.size());
+            logger.debug("find : " + result.size());
         }
 
-        System.out.println("find total : " + rs.size());
+        logger.debug("find total : " + rs.size());
 
         for (String r : rs) {
             System.out.print(r + '|');
