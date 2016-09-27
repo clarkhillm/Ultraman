@@ -33,7 +33,8 @@ class DNSTest {
                     .loadTrustMaterial(null,
                             (TrustStrategy) (x509Certificates, s) -> true)
                     .build(), NoopHostnameVerifier.INSTANCE);
-        } catch (NoSuchAlgorithmException | KeyManagementException
+        } catch (NoSuchAlgorithmException
+                | KeyManagementException
                 | KeyStoreException e) {
             e.printStackTrace();
         }
@@ -44,9 +45,12 @@ class DNSTest {
                                 .register("http", PlainConnectionSocketFactory
                                         .getSocketFactory())
                                 .register("https", sslSocketFactory)
-                                .build(), null, null,
-                        host -> new InetAddress[]{InetAddress.getByName(ip)});
+                                .build()
+                        , null
+                        , null
+                        , host -> new InetAddress[]{InetAddress.getByName(ip)});
         clientBuilder.setConnectionManager(connMgr);
+
         RequestConfig requestConfig = RequestConfig.custom()
                 .setSocketTimeout(1000)
                 .setConnectTimeout(1000)

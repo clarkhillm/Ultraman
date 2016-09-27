@@ -55,12 +55,13 @@ class IPScanner {
         ArrayList<String> finish = new ArrayList<>();
         while (true) {
             finish.clear();
-            finish.addAll(futures.stream().filter(Future::isDone).map(future -> "1").collect(Collectors.toList()));
+            finish.addAll(futures.stream().filter(Future::isDone).map(future -> "1")
+                    .collect(Collectors.toList()));
             if (finish.size() == futures.size()) {
                 break;
             }
         }
-        System.out.println("goods = " + goods);
+        logger.debug(goods);
         return goods;
     }
 }
