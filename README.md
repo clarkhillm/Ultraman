@@ -1,6 +1,6 @@
 ultraman
 ===
-<img src="ultaman.png"/>
+<img src="ultraman.png"/>
 
 一种工具，能够更好的利用google的appengine来为我们服务。
 
